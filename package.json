@@ -1,0 +1,45 @@
+{
+  "name": "ts-cookbook",
+  "version": "0.0.0",
+  "description": "A compilation of delicious Typescript recipes",
+  "author": "Moshe Kolodny",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "doctoc": "^1.4.0",
+    "dtslint": "^0.4.2",
+    "prepend-file-cli": "1.0.6",
+    "prettier": "^1.16.3",
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.0.2",
+    "type-zoo": "^3.3.0",
+    "typescript": "^3.3.1"
+  },
+  "scripts": {
+    "doctoc": "doctoc README.md",
+    "check-toc": "npm run doctoc && git diff --exit-code README.md",
+    "build": "tsc && prepend types/index.d.ts '// TypeScript Version: 2.8\n\n'",
+    "postbuild": "prettier --write index.ts types/index.d.ts types/index.js types/test.ts",
+    "check-examples": "npm run build && rimraf check-examples/snippets && ts-node --project check-examples/tsconfig.json check-examples/prepare-for-dtslint && dtslint check-examples/snippets",
+    "postcheck-examples": "rimraf check-examples/snippets",
+    "dtslint": "npm run build && dtslint types",
+    "test-travis": "npm run checktoc && npm test",
+    "test": "npm run dtslint && npm run check-examples"
+  },
+  "files": [
+    "types/index.js",
+    "types/index.d.ts"
+  ],
+  "main": "types/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolodny/ts-cookbook.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/kolodny/ts-cookbook/issues"
+  },
+  "homepage": "https://github.com/kolodny/ts-cookbook#readme"
+}
