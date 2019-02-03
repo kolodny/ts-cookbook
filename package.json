@@ -23,7 +23,7 @@
     "check-examples": "npm run build && rimraf check-examples/snippets && ts-node --project check-examples/tsconfig.json check-examples/prepare-for-dtslint && dtslint check-examples/snippets",
     "postcheck-examples": "rimraf check-examples/snippets",
     "dtslint": "npm run build && dtslint types",
-    "test-travis": "npm run checktoc && npm test",
+    "test-travis": "npm run check-toc && npm test",
     "test": "npm run dtslint && npm run check-examples"
   },
   "files": [
