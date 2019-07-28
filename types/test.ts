@@ -7,7 +7,8 @@ import {
   Mutable,
   MutableKeys,
   RemoveType,
-  KeepType
+  KeepType,
+  OneOf
 } from "../";
 
 const test = (desc: string, fn: () => void) => {
@@ -143,4 +144,21 @@ test("KeepType", () => {
     name: "Joe",
     age: 44
   };
+});
+
+test("Oneof", () => {
+  interface UnsavedRecord {
+    name: string;
+    age: number;
+  }
+
+  type DbRecord = UnsavedRecord &
+    OneOf<{
+      draftId: string;
+      dbId: string;
+    }>;
+  const record: DbRecord = {} as any;
+  if (record.dbId) {
+    record.draftId; // $ExpectType: undefined
+  }
 });

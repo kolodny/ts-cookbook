@@ -134,3 +134,13 @@ export type KeepType<T, TypesToKeep> = {
     [PropName in keyof T]: T[PropName] extends TypesToKeep ? PropName : never;
   }[keyof T]]: T[FilteredKey];
 };
+
+/**
+ * Require one and only one of the properties of an object to exist.
+ *
+ * type DbRecord = UnsavedRecord & OneOf<{draftId: string, dbId: string}>;
+ */
+export type OneOf<T> = {
+  [K in keyof T]: (Pick<T, K> &
+    Partial<Record<Exclude<keyof T, K>, undefined>>);
+}[keyof T];

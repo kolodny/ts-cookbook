@@ -31,6 +31,7 @@ This library contains some type definitions as well as some helper functions. Th
     - [Create a deep readonly object](#create-a-deep-readonly-object)
     - [Remove some types from an interface](#remove-some-types-from-an-interface)
     - [Create a new interface using some types of another interface](#create-a-new-interface-using-some-types-of-another-interface)
+    - [Require one and only one property of an object exist](#require-one-and-only-one-property-of-an-object-exist)
 - [Advanced Mapped Types Crash Course](#advanced-mapped-types-crash-course)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -441,6 +442,33 @@ const personForTest: KeepType<Person, string|number> = {
   name: 'Joe',
   age: 44,
 };
+```
+
+</details>
+
+### Require one and only one property of an object exist
+
+Use the `OneOf` function from `ts-cookbook`.
+
+<details>
+
+```ts
+import { OneOf } from 'ts-cookbook';
+
+interface UnsavedRecord {
+  name: string;
+  age: number;
+}
+
+type DbRecord = UnsavedRecord &
+  OneOf<{
+    draftId: string;
+    dbId: string;
+  }>;
+const record: DbRecord = {} as any;
+if (record.dbId) {
+  record.draftId; // draftId is typed as `draftId?: undefined`.
+}
 ```
 
 </details>
