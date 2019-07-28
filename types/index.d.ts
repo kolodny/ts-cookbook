@@ -12,7 +12,7 @@ export declare type Mutable<T> = {
     ? Set<T>
     : T[K] extends ReadonlyMap<infer K, infer V>
     ? Map<K, V>
-    : Mutable<T[K]>
+    : Mutable<T[K]>;
 };
 /** Remove readonly modifier on keys `K` from 'T'. */
 export declare type MutableKeys<T, K extends keyof T> = Pick<
@@ -26,7 +26,7 @@ export declare type MutableKeys<T, K extends keyof T> = Pick<
       ? Set<T>
       : T[K] extends ReadonlyMap<infer K, infer V>
       ? Map<K, V>
-      : Mutable<T[K]>
+      : Mutable<T[K]>;
   };
 /**
  * Make a Readonly T.
@@ -48,7 +48,9 @@ declare type _Readonly<T> = T extends Array<infer U>
   ? DeepReadonlySet<U>
   : T extends Map<infer K, infer V>
   ? DeepReadonlyMap<K, V>
-  : { readonly [P in keyof T]: _Readonly<T[P]> };
+  : {
+      readonly [P in keyof T]: _Readonly<T[P]>;
+    };
 interface DeepReadonlyArray<T> extends ReadonlyArray<_Readonly<T>> {}
 interface DeepReadonlySet<T> extends ReadonlySet<_Readonly<T>> {}
 interface DeepReadonlyMap<K, V>
@@ -77,8 +79,8 @@ export declare function readonly<T>(t: T): _Readonly<T>;
  */
 export declare type RemoveType<T, TypesToRemove> = {
   [FilteredKey in {
-    [PropName in keyof T]: T[PropName] extends TypesToRemove ? never : PropName
-  }[keyof T]]: T[FilteredKey]
+    [PropName in keyof T]: T[PropName] extends TypesToRemove ? never : PropName;
+  }[keyof T]]: T[FilteredKey];
 };
 /**
  * Create a new type based off of T with TypesToKeep properties.
@@ -99,6 +101,6 @@ export declare type RemoveType<T, TypesToRemove> = {
  */
 export declare type KeepType<T, TypesToKeep> = {
   [FilteredKey in {
-    [PropName in keyof T]: T[PropName] extends TypesToKeep ? PropName : never
-  }[keyof T]]: T[FilteredKey]
+    [PropName in keyof T]: T[PropName] extends TypesToKeep ? PropName : never;
+  }[keyof T]]: T[FilteredKey];
 };

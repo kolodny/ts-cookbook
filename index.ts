@@ -11,7 +11,7 @@ export type Mutable<T> = {
     ? Set<T>
     : T[K] extends ReadonlyMap<infer K, infer V>
     ? Map<K, V>
-    : Mutable<T[K]>
+    : Mutable<T[K]>;
 };
 /** Remove readonly modifier on keys `K` from 'T'. */
 export type MutableKeys<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
@@ -22,7 +22,7 @@ export type MutableKeys<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
       ? Set<T>
       : T[K] extends ReadonlyMap<infer K, infer V>
       ? Map<K, V>
-      : Mutable<T[K]>
+      : Mutable<T[K]>;
   };
 
 /**
@@ -91,8 +91,8 @@ export function readonly<T>(t: T): _Readonly<T> {
  */
 export type RemoveType<T, TypesToRemove> = {
   [FilteredKey in {
-    [PropName in keyof T]: T[PropName] extends TypesToRemove ? never : PropName
-  }[keyof T]]: T[FilteredKey]
+    [PropName in keyof T]: T[PropName] extends TypesToRemove ? never : PropName;
+  }[keyof T]]: T[FilteredKey];
 };
 
 // Here's the above with Annotations, assume T is `Person` from above and `TypeToRemove` is `string`:
@@ -131,6 +131,6 @@ export type RemoveType<T, TypesToRemove> = {
  */
 export type KeepType<T, TypesToKeep> = {
   [FilteredKey in {
-    [PropName in keyof T]: T[PropName] extends TypesToKeep ? PropName : never
-  }[keyof T]]: T[FilteredKey]
+    [PropName in keyof T]: T[PropName] extends TypesToKeep ? PropName : never;
+  }[keyof T]]: T[FilteredKey];
 };
